@@ -76,7 +76,13 @@ define sdb_mysql::instance (
       mode                    => '0644',
       selinux_ignore_defaults => true,
     }
-
+    ->
+    exec {
+    "${name}_replace_debian-start":
+      command => "/bin/sed -i 's/\\/etc\\/mysql\\//\\/etc\\/${name}\\//g' /etc/${name}/debian-start",
+      onlyif => "/bin/grep '/etc/mysql/' /etc/${name}/debian-start"
+    }
+    
     file { "/var/log/${name}":
       ensure => directory,
       mode   => '0755',
@@ -96,13 +102,6 @@ define sdb_mysql::instance (
       mode   => '0755',
       owner  => $options['mysqld']['user'],
       group  => 'root',
-    }
-    
-    file_line { "${name}_etc_debian_start":
-      path => "/etc/${name}/debian-start",
-      line => "/etc/mysql-1",
-      match   => "/etc/${name}",
-      multiple => false
     }
     
     exec {
