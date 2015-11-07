@@ -31,6 +31,12 @@ define sdb_mysql::instance (
       line => "/usr/bin/mysqld_safe --defaults-file=/etc/${name}/my.cnf > /dev/null 2>&1 &",
       match   => "/usr/bin/mysqld_safe > /dev/null 2>&1 &",
     }
+    ->
+    file_line { "${name}_init.d_script_var_run_folder":
+      path => "/etc/init.d/${name}",
+      line => "test -e /var/run/${mysqld_name} || install -m 755 -o mysql -g root -d /var/run/${mysqld_name}",
+      match   => 'test -e /var/run/mysqld \|| install -m 755 -o mysql -g root -d /var/run/mysqld',
+    }
 
 		$instance_options = {
 		  'mysqld' => {
