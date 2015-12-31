@@ -61,7 +61,7 @@ sudo service mysql-3 start
 
 ###Config, data and log folder
 With the example above these folder exists.
-
+~~~
 /etc/mysql/
 /etc/mysql-1/
 ..
@@ -70,3 +70,4 @@ With the example above these folder exists.
 ..
 /var/log/mysql/
 /var/log/mysql-1/
+~~~
