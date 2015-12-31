@@ -3,6 +3,7 @@
 #### Table of Contents
 
 1. [Module Description](#module-description)
+2. [Setup](#setup)
 
 ## Module Description
 
