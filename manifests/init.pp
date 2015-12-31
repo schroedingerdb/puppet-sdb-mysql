@@ -11,14 +11,18 @@
 # Sample Usage:
 #
 class sdb_mysql (
-  $apparmor_purged = true
-) {
-
-  if $apparmor_purged
+  $stop_appammor_service = true
+){
+  
+  if $stop_appammor_service == true
   {
-    package {
-      'apparmor':
-        ensure => purged
+    # stopping appammor for mysql_install_db
+    # details: http://schroedingerdb.com/mysql-en/installation-en/mysqld
+    exec { "stopping_appammor":
+      command => "sudo service apparmor teardown",
+      path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
+      onlyif => "service apparmor status"
     }
   }
+
 }
