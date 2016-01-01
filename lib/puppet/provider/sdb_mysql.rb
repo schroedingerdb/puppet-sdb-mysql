@@ -16,10 +16,6 @@ class Puppet::Provider::Sdb_Mysql < Puppet::Provider
     return return_value
   end
   
-#  def defaults_file(instance_name, defaults_file)
-#    self.class.defaults_file(instance_name, defaults_file)
-#  end  
-  
   def self.users(instance_name, defaults_file)
     mysql([defaults_file(instance_name, defaults_file), '-NBe', "SELECT CONCAT(User, '@',Host) AS User FROM mysql.user"].compact).split("\n")
   end
