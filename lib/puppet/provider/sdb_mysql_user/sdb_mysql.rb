@@ -14,6 +14,8 @@ Puppet::Type.type(:sdb_mysql_user).provide(:sdb_mysql, :parent => Puppet::Provid
     
     @mysql_instances.each do |instance_name, defaults_file|
       
+      Facter::Util::Resolution.exec("sudo service "+instance_name+" start")
+      
       mysql_defaults_file_params = defaults_file(instance_name, defaults_file)
       
       users = mysql([mysql_defaults_file_params, '-NBe',
