@@ -7,8 +7,8 @@
 
 ## Module Description
 
-The sdb_mysql module installs, configures, and manages the MySQL instances. It requires the module [puppetlabs/mysql](https://forge.puppetlabs.com/puppetlabs/mysql).
-Install the puppetlabs/mysql module before using sdb_mysql module.
+The sdb_mysql module installs, configures, and manages multiple MySQL instances. It requires the module [puppetlabs/mysql](https://forge.puppetlabs.com/puppetlabs/mysql).
+You must install the puppetlabs/mysql module before using sdb_mysql module.
 The code structure is very similar to puppetlabs/mysql and the goal is to reuse all parameters of puppetlabs/mysql.
 
 ## Setup
@@ -18,7 +18,7 @@ The code structure is very similar to puppetlabs/mysql and the goal is to reuse 
 The behavior of the module is similar to [puppetlabs/mysql](https://forge.puppetlabs.com/puppetlabs/mysql).
 Read the documentation of puppetlabs/mysql for details,
 
-If you want to install an instance on defuault port and 3 more instances you can do this:
+If you want to install multiple MySQL instances you can do this:
 
 ~~~
 $root_password = "root"
