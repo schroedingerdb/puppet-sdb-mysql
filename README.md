@@ -10,14 +10,15 @@
 The sdb_mysql module installs, configures, and manages multiple MySQL instances. 
 It requires the module [puppetlabs/mysql](https://forge.puppetlabs.com/puppetlabs/mysql),
 please install the puppetlabs/mysql module before using sdb_mysql module.
-```
+```sh
 sudo puppet module install puppetlabs-mysql
 ```
 The code structure is very similar to puppetlabs/mysql and the goal is to reuse all parameters of puppetlabs/mysql.
 
 ## Setup
+### Module installation
 Install sdb_mysql module on your system.
-```
+```sh
 sudo git clone https://github.com/schroedingerdb/puppet-sdb_mysql.git /etc/puppet/modules/sdb_mysql
 ```
 
@@ -26,7 +27,7 @@ sudo git clone https://github.com/schroedingerdb/puppet-sdb_mysql.git /etc/puppe
 The behavior of the module is similar to [puppetlabs/mysql](https://forge.puppetlabs.com/puppetlabs/mysql). Read the documentation of puppetlabs/mysql for details.
 If you want to install multiple MySQL instances you can do this:
 
-```
+```puppet
 $root_password = "root"
 
 $override_options = {
@@ -53,7 +54,7 @@ With this example you will install one *normal* mysql server instance on port 33
 ### Stop and start services
 
 After running puppet with the example above you can stop and start service as usual.
-```
+```sh
 sudo service mysql stop
 sudo service mysql-1 stop
 sudo service mysql-2 stop
