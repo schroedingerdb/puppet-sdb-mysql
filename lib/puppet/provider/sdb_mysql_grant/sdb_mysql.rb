@@ -11,6 +11,10 @@ Puppet::Type.type(:sdb_mysql_grant).provide(:sdb_mysql, :parent => Puppet::Provi
 
       mysql_defaults_file_params = defaults_file(instance_name, defaults_file)
 
+      if is_defaults_file_with_root_pw(instance_name) == false
+        next
+      end
+
       users(instance_name, defaults_file).select{ |user| user =~ /.+@/ }.collect do |user|
 
         user_string = self.cmd_user(user)
