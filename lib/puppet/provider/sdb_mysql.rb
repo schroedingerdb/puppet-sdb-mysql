@@ -4,7 +4,6 @@ class Puppet::Provider::Sdb_Mysql < Puppet::Provider
   initvars
   commands :mysql      => 'mysql'
   commands :mysqladmin => 'mysqladmin'
-
   # Optional defaults file
   def self.defaults_file(instance_name, defaults_file)
     return_value = "--defaults-file="+ defaults_file
@@ -16,11 +15,12 @@ class Puppet::Provider::Sdb_Mysql < Puppet::Provider
     return return_value
   end
   
-#  def defaults_file(instance_name, defaults_file)
-#    self.class.defaults_file(instance_name, defaults_file)
-#  end  
-  
+  def self.is_defaults_file_with_root_pw(instance_name)
+    File.file?("#{Facter.value(:root_home)}/.my.cnf." + instance_name)
+  end
+
   def self.users(instance_name, defaults_file)
+    puts "self.users" + instance_name
     mysql([defaults_file(instance_name, defaults_file), '-NBe', "SELECT CONCAT(User, '@',Host) AS User FROM mysql.user"].compact).split("\n")
   end
 
@@ -36,7 +36,7 @@ class Puppet::Provider::Sdb_Mysql < Puppet::Provider
     # We can't escape *.* so special case this.
     if table == '*.*'
       table_string << '*.*'
-    # Special case also for PROCEDURES
+      # Special case also for PROCEDURES
     elsif table.start_with?('PROCEDURE ')
       table_string << table.sub(/^PROCEDURE (.*)(\..*)/, 'PROCEDURE `\1`\2')
     else
