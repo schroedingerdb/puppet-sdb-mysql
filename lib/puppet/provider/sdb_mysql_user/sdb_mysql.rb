@@ -36,7 +36,6 @@ Puppet::Type.type(:sdb_mysql_user).provide(:sdb_mysql, :parent => Puppet::Provid
         next
       end
       
-      puts "NO dummy " + instance_name 
       Facter::Util::Resolution.exec("sudo service "+instance_name+" start")
 
       mysql_defaults_file_params = defaults_file(instance_name, defaults_file)
