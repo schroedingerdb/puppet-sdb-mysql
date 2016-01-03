@@ -25,4 +25,12 @@ class sdb_mysql (
     }
   }
 
+  # workaround for mysql 5.6 installation
+  # http://schroedingerdb.com/mysql-en/installation-en/mysql_install_db
+  exec { "create_file_my-default.cnf":
+    command => "cp /etc/mysql/my.cnf /usr/share/mysql/my-default.cnf",
+    path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
+    creates => "/usr/share/mysql/my-default.cnf"
+  }
+
 }
