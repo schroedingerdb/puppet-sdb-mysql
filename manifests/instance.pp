@@ -61,7 +61,7 @@ define sdb_mysql::instance (
 				'ssl-ca' => "/etc/${name}/cacert.pem",
 				'ssl-cert' => "/etc/${name}/server-cert.pem",
 				'ssl-key' => "/etc/${name}/server-key.pem",
-        'tmpdir' => "/tmp/${name}"
+        'tmpdir' => "/var/lib/${name}-tmp"
 		  },
 		  'mysqld_safe' => {
 		    'log-error' => "/var/log/${name}/error.log",
