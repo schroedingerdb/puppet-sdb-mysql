@@ -78,3 +78,54 @@ With the example above these folder exists.
 /var/log/mysql/
 /var/log/mysql-1/
 ```
+### Parameters
+
+#### sdb_mysql::instance
+
+##### `override_options`
+Same behavior like: https://forge.puppetlabs.com/puppetlabs/mysql#mysqlserver
+
+The hash of override options to pass into MySQL. Structured like a hash in the my.cnf file:
+
+~~~
+$override_options = {
+  'section' => {
+    'item'             => 'thing',
+  }
+}
+~~~
+
+##### `users`
+Same behavior like: https://forge.puppetlabs.com/puppetlabs/mysql#mysqlserver
+
+Optional hash of users to create, which are passed to [mysql_user](#mysql_user). 
+
+~~~
+users => {
+  'someuser@localhost' => {
+    ensure                   => 'present',
+    max_connections_per_hour => '0',
+    max_queries_per_hour     => '0',
+    max_updates_per_hour     => '0',
+    max_user_connections     => '0',
+    password_hash            => '*F3A2A51A9B0F2BE2468926B4132313728C250DBF',
+  },
+}
+~~~
+
+##### `grants`
+Same behavior like: https://forge.puppetlabs.com/puppetlabs/mysql#mysqlserver
+
+Optional hash of grants, which are passed to [mysql_grant](#mysql_grant). 
+
+~~~
+grants => {
+  'someuser@localhost/somedb.*' => {
+    ensure     => 'present',
+    options    => ['GRANT'],
+    privileges => ['SELECT', 'INSERT', 'UPDATE', 'DELETE'],
+    table      => 'somedb.*',
+    user       => 'someuser@localhost',
+  },
+}
+~~~

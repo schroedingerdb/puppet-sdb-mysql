@@ -20,7 +20,6 @@ class Puppet::Provider::Sdb_Mysql < Puppet::Provider
   end
 
   def self.users(instance_name, defaults_file)
-    puts "self.users" + instance_name
     mysql([defaults_file(instance_name, defaults_file), '-NBe', "SELECT CONCAT(User, '@',Host) AS User FROM mysql.user"].compact).split("\n")
   end
 
