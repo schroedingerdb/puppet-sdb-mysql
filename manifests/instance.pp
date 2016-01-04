@@ -2,6 +2,7 @@ define sdb_mysql::instance (
   $port,
   $override_options = {},
   $users = {},
+  $grants = {}
 ){
 
   # ensure that a mysql server is installed before installing instances
@@ -145,6 +146,8 @@ define sdb_mysql::instance (
     }
 
     $debian_pw = $::sdb_mysql_get_debian_pw
+    $new_users = sdb_mysql_get_array_with_instance_name($users,$name)
+    $new_grants = sdb_mysql_get_array_with_instance_name($grants,$name)
     
     sdb_mysql_user { "${name} debian-sys-maint@localhost":
       instance_name => $name,
@@ -164,6 +167,9 @@ define sdb_mysql::instance (
 	    table      => '*.*',
 	    user       => 'debian-sys-maint@localhost'
     }
+    
+    create_resources('sdb_mysql_user', $new_users)
+    create_resources('sdb_mysql_grant', $new_grants)
   }
   else
   {
